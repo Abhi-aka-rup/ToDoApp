@@ -11,6 +11,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ToDoApp.Entities.ViewModels;
 using System;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace AzFuncToDo
 {
@@ -57,7 +59,33 @@ namespace AzFuncToDo
                 response.StatusCode = 500;
                 return response;
             }
+        }
 
+        [FunctionName("Post")]
+        public async Task<IActionResult> AddToDo(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req,
+            ILogger logger)
+        {
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var data = JsonConvert.DeserializeObject<ToDo>(requestBody);
+
+            try
+            {
+                _toDoRepository.Add(data);
+                if (await _toDoRepository.SaveChangesAsync())
+                {
+                    var response = new ObjectResult(data);
+                    response.StatusCode = 201;
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                var response = new ObjectResult(ex.Message);
+                response.StatusCode=500;
+                return response;
+            }
+            return new BadRequestObjectResult("Bad POST call");
         }
     }
 }
