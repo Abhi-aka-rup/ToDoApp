@@ -5,7 +5,7 @@ namespace ToDoApp.Data.Repositories.Interfaces
     public interface IToDoRepository
     {
         Task<IEnumerable<ToDo>> GetAllToDoAsync();
-        Task<ToDo> GetToDoByIdAsync(int id);
+        Task<ToDo> GetToDoByIdAsync(string id);
 
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;

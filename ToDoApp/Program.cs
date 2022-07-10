@@ -9,7 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ToDoContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ToDoApp"))
+    options.UseCosmos("https://todocosmosdemo.documents.azure.com:443/",
+    "dXA1ub4UtDkYNmkuCSr0pOVyO7HTtXiOBVrufAJZ88lm2MQn85BRHWxnAK13vVnC3yWtwZzm4JOlqlbsaulgag==",
+    "ToDoDb")
 );
 builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
 builder.Services.AddAutoMapper(typeof(Program));

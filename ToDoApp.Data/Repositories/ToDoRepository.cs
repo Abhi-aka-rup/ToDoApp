@@ -19,9 +19,9 @@ namespace ToDoApp.Data.Repositories
             return await _context.ToDo.ToListAsync();
         }
 
-        public async Task<ToDo> GetToDoByIdAsync(int id)
+        public async Task<ToDo> GetToDoByIdAsync(string id)
         {
-            return await _context.ToDo.Where(data => data.Id == id).FirstOrDefaultAsync();
+            return await _context.ToDo.Where(data => data.Id.ToString().ToLower() == id.ToLower()).FirstOrDefaultAsync();
         }
 
         public void Add<T>(T entity) where T : class

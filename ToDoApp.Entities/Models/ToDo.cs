@@ -5,7 +5,7 @@ namespace ToDoApp.Entities.Models
     public class ToDo
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string Title { get; set; }

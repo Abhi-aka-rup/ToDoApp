@@ -46,7 +46,7 @@ namespace ToDoApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetToDoById(int id)
+        public async Task<IActionResult> GetToDoById(string id)
         {
             try
             {
